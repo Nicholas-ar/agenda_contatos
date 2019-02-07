@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:agenda_contatos/helpers/contact_helper.dart';
 import 'dart:io';
 
@@ -61,6 +62,18 @@ class _ContactPageState extends State<ContactPage> {
           child: Column(
             children: <Widget>[
               GestureDetector(
+                onTap: () {
+                  ImagePicker.pickImage(source: ImageSource.camera)
+                      .then((file) {
+                    if (file == null)
+                      return;
+                    else {
+                      setState(() {
+                        _editedContact.img = file.path;
+                      });
+                    }
+                  });
+                },
                 child: Container(
                   width: 140.0,
                   height: 140.0,
